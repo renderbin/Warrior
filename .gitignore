@@ -1,6 +1,28 @@
 # Visual Studio 2015 user specific files
 .vs/
 
+# VS Code specific files
+.vscode/
+*.code-workspace
+
+# VS Code settings and extensions
+.vscode/settings.json
+.vscode/tasks.json
+.vscode/launch.json
+.vscode/extensions.json
+
+# VS Code user specific
+*.vscodeignore
+
+# Compiled Python files (for VS Code Python extensions)
+__pycache__/
+*.py[cod]
+
+# VS Code browsing cache
+*.db
+*.db-shm
+*.db-wal
+
 # Compiled Object files
 *.slo
 *.lo
