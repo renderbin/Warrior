@@ -11,6 +11,7 @@
 #include "AbilitySystem/WarriorAbilitySystemComponent.h"
 #include "AbilitySystem/WarriorAttributeSet.h"
 #include "WarriorGameplayTags.h"
+#include "DataAssets/StartUpData/DataAsset_StartUpDataBase.h"
 AWarriorHeroCharacter::AWarriorHeroCharacter()
 {
     GetCapsuleComponent()->InitCapsuleSize(42.0f, 96.0f);
@@ -38,7 +39,7 @@ AWarriorHeroCharacter::AWarriorHeroCharacter()
 void AWarriorHeroCharacter::BeginPlay()
 {
     Super::BeginPlay();
-    //Debug::Print(TEXT("WarriorHeroCharacter BeginPlay"));
+
 }
 void AWarriorHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
@@ -83,11 +84,11 @@ void AWarriorHeroCharacter::Input_Look(const FInputActionValue& InputActionValue
 void AWarriorHeroCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
-	if(WarriorAbilitySystemComponent && WarriorAttributeSet)
+	if(!CharacterStartUpData.IsNull())
 	{
-        const FString ASCText = FString::Printf(TEXT("Owner Actor: %s, AvatarActor: %s"),*WarriorAbilitySystemComponent->GetOwnerActor()->GetActorLabel(),*WarriorAbilitySystemComponent->GetAvatarActor()->GetActorLabel());
-		Debug::Print(TEXT("Ability system component is valid.") + ASCText,FColor::Green);
-        Debug::Print(TEXT("Attributeset is valid.") + ASCText,FColor::Green);
-
+		if(UDataAsset_StartUpDataBase* LoadedData = CharacterStartUpData.LoadSynchronous())
+		{
+			LoadedData->GiveToAbilitySystemComponent(WarriorAbilitySystemComponent);
+		}
 	}
 }
