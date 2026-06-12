@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(clang-format --version)",
+      "Bash(where clang-format *)",
+      "Read(//c/Program Files/LLVM/bin/**)",
+      "Read(//c/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/Llvm/bin/**)",
+      "Read(//c/Program Files/Microsoft Visual Studio/2022/Professional/VC/Tools/Llvm/bin/**)",
+      "Bash(winget install *)"
+    ]
+  }
+}

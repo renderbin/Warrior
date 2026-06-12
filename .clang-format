@@ -1,0 +1,104 @@
+---
+# Warrior C++ Coding Style
+# Based on Epic Games Unreal Engine coding standard
+# https://dev.epicgames.com/documentation/en-us/unreal-engine/epic-cplusplus-coding-standard-for-unreal-engine
+
+Language: Cpp
+BasedOnStyle: LLVM
+
+# ── 缩进 ──
+IndentWidth: 4
+TabWidth: 4
+UseTab: ForContinuationAndIndentation
+AccessModifierOffset: -4
+NamespaceIndentation: None
+
+# ── 大括号风格 (Allman/Epic 风格) ──
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterCaseLabel: true
+  AfterClass: true
+  AfterControlStatement: true
+  AfterEnum: true
+  AfterFunction: true
+  AfterNamespace: true
+  AfterObjCDeclaration: true
+  AfterStruct: true
+  AfterUnion: true
+  AfterExternBlock: true
+  BeforeCatch: true
+  BeforeElse: true
+  BeforeLambdaBody: false
+  BeforeWhile: true
+  IndentBraces: false
+
+# ── 列宽 ──
+ColumnLimit: 0
+
+# ── 指针与引用对齐 ──
+PointerAlignment: Left
+
+# ── 换行与对齐 ──
+AlignAfterOpenBracket: DontAlign
+AlignOperands: AlignAfterOperator
+AlignConsecutiveAssignments: None
+AlignConsecutiveBitFields: None
+AlignConsecutiveDeclarations: None
+AlignEscapedNewlines: Left
+AlignTrailingComments: true
+
+# ── 空行与空格 ──
+MaxEmptyLinesToKeep: 1
+EmptyLineBeforeAccessModifier: LogicalBlock
+
+# ── 短代码行策略 ──
+AllowShortBlocksOnASingleLine: Empty
+AllowShortEnumsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortLambdasOnASingleLine: Inline
+
+# ── 三元与二元运算符 ──
+BreakBeforeBinaryOperators: NonAssignment
+BreakBeforeTernaryOperators: true
+
+# ── 构造函数初始化列表 ──
+BreakConstructorInitializers: BeforeComma
+PackConstructorInitializers: CurrentLine
+
+# ── 继承列表 ──
+BreakInheritanceList: BeforeComma
+
+# ── Switch/Case ──
+IndentCaseLabels: true
+IndentCaseBlocks: false
+SpaceBeforeCaseColon: false
+
+# ── Include 排序 (Preserve = 保持 UE 特有的 include 顺序) ──
+IncludeBlocks: Preserve
+SortIncludes: true
+
+# ── 预处理指令 ──
+IndentPPDirectives: None
+
+# ── C++ 标准 ──
+Standard: c++17
+
+# ── 字符串换行 ──
+BreakStringLiterals: true
+
+# ── namespace 注释 ──
+FixNamespaceComments: true
+
+# ── UE 宏识别 ──
+StatementMacros:
+  - UPROPERTY
+  - UFUNCTION
+  - UCLASS
+  - USTRUCT
+  - UENUM
+  - UINTERFACE
+  - GENERATED_BODY
+  - GENERATED_CLASS
+  - GENERATED_UCLASS_BODY
+  - GENERATED_USTRUCT_BODY
+  - v
