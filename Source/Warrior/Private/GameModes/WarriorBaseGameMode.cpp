@@ -1,8 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
+// Warrior Base GameMode implementation
 
 #include "GameModes/WarriorBaseGameMode.h"
-
-
-
-

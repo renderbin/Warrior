@@ -73,9 +73,9 @@ IndentCaseLabels: true
 IndentCaseBlocks: false
 SpaceBeforeCaseColon: false
 
-# ── Include 排序 (Preserve = 保持 UE 特有的 include 顺序) ──
+# ── Include 排序 (关闭自动排序，手动维护 UE 规范的 include 顺序) ──
 IncludeBlocks: Preserve
-SortIncludes: true
+SortIncludes: false
 
 # ── 预处理指令 ──
 IndentPPDirectives: None
