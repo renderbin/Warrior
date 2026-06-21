@@ -46,11 +46,14 @@ void AWarriorHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInp
 	checkf(InputConfigDataAsset, TEXT("Input config data asset is null,can not proceed with binding"));
 	ULocalPlayer* LocalPlayer = GetController<APlayerController>()->GetLocalPlayer();
 	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(LocalPlayer);
+	check(Subsystem);
 	Subsystem->AddMappingContext(InputConfigDataAsset->DefaultMappingContext, 0);
 
 	UWarriorInputComponent* WarriorInputComponent = Cast<UWarriorInputComponent>(PlayerInputComponent);
 	WarriorInputComponent->BindNativeInputAction(InputConfigDataAsset, WarriorGameplayTags::InputTag_Move, ETriggerEvent::Triggered, this, &AWarriorHeroCharacter::Input_Move);
 	WarriorInputComponent->BindNativeInputAction(InputConfigDataAsset, WarriorGameplayTags::InputTag_Look, ETriggerEvent::Triggered, this, &AWarriorHeroCharacter::Input_Look);
+
+	WarriorInputComponent->BindAbilityInputAction(InputConfigDataAsset,this,&AWarriorHeroCharacter::Input_AbilityInputPressed,&AWarriorHeroCharacter::Input_AbilityInputReleased);
 }
 void AWarriorHeroCharacter::Input_Move(const FInputActionValue& InputActionValue)
 {
@@ -91,3 +94,12 @@ void AWarriorHeroCharacter::PossessedBy(AController* NewController)
 		}
 	}
 }
+
+void AWarriorHeroCharacter::Input_AbilityInputPressed(FGameplayTag InInputTag)
+{
+	WarriorAbilitySystemComponent->OnAbilityInputPressed(InInputTag);
+}	
+void AWarriorHeroCharacter::Input_AbilityInputReleased(FGameplayTag InInputTag)
+{
+	WarriorAbilitySystemComponent->OnAbilityInputReleased(InInputTag);
+}	

@@ -4,6 +4,7 @@
 
 #include "Characters/WarriorBaseCharacter.h"
 #include "CoreMinimal.h"
+#include "GameplayTagContainer.h"
 #include "WarriorHeroCharacter.generated.h"
 
 class USpringArmComponent;
@@ -33,7 +34,7 @@ private:
 	USpringArmComponent* CameraBoom;
 	UPROPERTY(VisibleAnywhere, Category = "Component", meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FollowCamera;
-	UPROPERTY(VisibleAnywhere, Category = "Combat", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Combat", meta = (AllowPrivateAccess = "true"))
 	UHeroCombatComponent* HeroCombatComponent;
 #pragma endregion Component
 #pragma region Input
@@ -42,6 +43,9 @@ private:
 
 	void Input_Move(const FInputActionValue& InputActionValue);
 	void Input_Look(const FInputActionValue& InputActionValue);
+
+	void Input_AbilityInputPressed(FGameplayTag InInputTag);
+	void Input_AbilityInputReleased(FGameplayTag InInputTag);
 #pragma endregion Input
 
 public:

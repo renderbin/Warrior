@@ -22,7 +22,7 @@ public:
 	void BindNativeInputAction(const UDataAsset_InputConfig* InInputConfig, const FGameplayTag& InInputTag, ETriggerEvent TriggerEvent, UserObject* ContextObject, CallbackFunc Func);
 
 	template <class UserObject, typename CallbackFunc>
-	void BindAbilityInputAction(const UDataAsset_InputConfig* InInputConfig, const FGameplayTag& InInputTag, UserObject* ContextObject, CallbackFunc InputPressedFunc, CallbackFunc InputReleasedFunc);
+	void BindAbilityInputAction(const UDataAsset_InputConfig* InInputConfig, UserObject* ContextObject, CallbackFunc InputPressedFunc, CallbackFunc InputReleasedFunc);
 };
 template <class UserObject, typename CallbackFunc>
 inline void UWarriorInputComponent::BindNativeInputAction(const UDataAsset_InputConfig* InInputConfig, const FGameplayTag& InInputTag, ETriggerEvent TriggerEvent, UserObject* ContextObject, CallbackFunc Func)
@@ -34,7 +34,7 @@ inline void UWarriorInputComponent::BindNativeInputAction(const UDataAsset_Input
 	}
 }
 template <class UserObject, typename CallbackFunc>
-inline void UWarriorInputComponent::BindAbilityInputAction(const UDataAsset_InputConfig* InInputConfig, const FGameplayTag& InInputTag, UserObject* ContextObject, CallbackFunc InputPressedFunc, CallbackFunc InputReleasedFunc)
+inline void UWarriorInputComponent::BindAbilityInputAction(const UDataAsset_InputConfig* InInputConfig, UserObject* ContextObject, CallbackFunc InputPressedFunc, CallbackFunc InputReleasedFunc)
 {
 	checkf(InInputConfig, TEXT("Input config data asset is null,can not proceed with binding"));
 	for (const FWarriorInputActionConfig& AbilityInputActionConfig : InInputConfig->AbilityInputActions)
