@@ -25,7 +25,7 @@ public:
 };
 /**
  *
- */
+ */ 
 UCLASS()
 class WARRIOR_API UDataAsset_InputConfig : public UDataAsset
 {
