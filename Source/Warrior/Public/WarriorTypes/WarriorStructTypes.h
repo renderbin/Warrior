@@ -18,6 +18,7 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TSubclassOf<UWarriorGameplayAbility> AbilityToGrant;
+	
 	bool IsValid() const;
 };
 

@@ -20,4 +20,5 @@ UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Attack_HeavyAttack_Axe, "Player.Ability.At
 
 UE_DEFINE_GAMEPLAY_TAG(Player_Event_Equip_Axe, "Player.Event.Equip.Axe");
 UE_DEFINE_GAMEPLAY_TAG(Player_Event_Unequip_Axe, "Player.Event.Unequip.Axe");
+UE_DEFINE_GAMEPLAY_TAG(Player_Status_JumpToFinisher, "Player.Status.JumpToFinisher");
 } // namespace WarriorGameplayTags
