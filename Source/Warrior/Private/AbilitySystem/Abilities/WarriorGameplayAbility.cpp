@@ -2,12 +2,12 @@
 
 #include "AbilitySystem/Abilities/WarriorGameplayAbility.h"
 #include "AbilitySystem/WarriorAbilitySystemComponent.h"
-#include "Components/Combat/PawnCombatComponet.h"
+#include "Components/Combat/PawnCombatComponent.h"
 
 void UWarriorGameplayAbility::OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
 {
 	Super::OnGiveAbility(ActorInfo, Spec);
-	if (ActivationPolity == EWarriorAbilityActivationPolity::OnGiven)
+	if (ActivationPolicy == EWarriorAbilityActivationPolicy::OnGiven)
 	{
 		if (ActorInfo && !Spec.IsActive())
 		{
@@ -19,7 +19,7 @@ void UWarriorGameplayAbility::EndAbility(const FGameplayAbilitySpecHandle Handle
 {
 	Super::EndAbility(Handle, ActorInfo, ActivationInfo, bReplicateEndAbility, bWasCancelled);
 
-	if (ActivationPolity == EWarriorAbilityActivationPolity::OnGiven)
+	if (ActivationPolicy == EWarriorAbilityActivationPolicy::OnGiven)
 	{
 
 		if (ActorInfo)
@@ -29,9 +29,9 @@ void UWarriorGameplayAbility::EndAbility(const FGameplayAbilitySpecHandle Handle
 	}
 }
 
-UPawnCombatComponet* UWarriorGameplayAbility::GetPawnCombatComponetFromActorInfo() const
+UPawnCombatComponent* UWarriorGameplayAbility::GetPawnCombatComponentFromActorInfo() const
 {
-	return GetAvatarActorFromActorInfo()->FindComponentByClass<UPawnCombatComponet>();
+	return GetAvatarActorFromActorInfo()->FindComponentByClass<UPawnCombatComponent>();
 }
 
 UWarriorAbilitySystemComponent* UWarriorGameplayAbility::GetWarriorAbilitySystemComponentFromActorInfo() const

@@ -6,11 +6,11 @@
 #include "CoreMinimal.h"
 #include "WarriorGameplayAbility.generated.h"
 
-class UPawnCombatComponet;
+class UPawnCombatComponent;
 class UWarriorAbilitySystemComponent;
 
 UENUM(BlueprintType)
-enum class EWarriorAbilityActivationPolity : uint8
+enum class EWarriorAbilityActivationPolicy : uint8
 {
 	OnTriggered,
 	OnGiven
@@ -26,10 +26,10 @@ protected:
 	virtual void OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec) override;
 	virtual void EndAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateEndAbility, bool bWasCancelled) override;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "AbilitySystem")
-	EWarriorAbilityActivationPolity ActivationPolity = EWarriorAbilityActivationPolity::OnTriggered;
+	EWarriorAbilityActivationPolicy ActivationPolicy = EWarriorAbilityActivationPolicy::OnTriggered;
 
 	UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
-	UPawnCombatComponet* GetPawnCombatComponetFromActorInfo() const;
+	UPawnCombatComponent* GetPawnCombatComponentFromActorInfo() const;
 
 	UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
 	UWarriorAbilitySystemComponent* GetWarriorAbilitySystemComponentFromActorInfo() const;

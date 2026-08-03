@@ -331,7 +331,7 @@ GA_Hero_EquipAxe::ActivateAbility():
   │ 步骤③: 事件回调 —— 做实际的装备工作               │
   │                                                   │
   │ a. 从 CombatComponent 取出斧头                    │
-  │    GetHeroCharacterCarriedWeaponByTag(             │
+  │    GetHeroCarriedWeaponByTag(             │
   │        "Player.Weapon.Axe")                       │
   │                                                   │
   │ b. 把斧头物理挂接到右手骨骼上                      │
@@ -458,17 +458,17 @@ LinkAnimClassLayers(AnimLayer_HeroAxe) 做的事情:
 
 做了什么：
   OnGiveAbility():
-    如果 ActivationPolity == OnGiven → 立刻激活
+    如果 ActivationPolicy == OnGiven → 立刻激活
   
   EndAbility():
-    如果 ActivationPolity == OnGiven → 激活一次后删除（用过的技能不再需要）
+    如果 ActivationPolicy == OnGiven → 激活一次后删除（用过的技能不再需要）
 
   提供的工具函数：
     GetPawnCombatComponentFromActorInfo()  — 拿战斗组件
     GetWarriorAbilitySystemComponentFromActorInfo() — 拿ASC
 
 关键变量：
-  ActivationPolity  — OnGiven（自动激活）还是 OnTriggered（等按键）
+  ActivationPolicy  — OnGiven（自动激活）还是 OnTriggered（等按键）
 ```
 
 #### `UWarriorHeroGameplayAbility`（[WarriorHeroGameplayAbility.h](Source/Warrior/Public/AbilitySystem/Abilities/WarriorHeroGameplayAbility.h)）
@@ -580,7 +580,7 @@ LinkAnimClassLayers(AnimLayer_HeroAxe) 做的事情:
     WeaponInputMappingContext   — 装备时激活哪个输入映射
 ```
 
-#### `UPawnCombatComponet`（[PawnCombatComponet.h](Source/Warrior/Public/Components/Combat/PawnCombatComponet.h)）
+#### `UPawnCombatComponent`（[PawnCombatComponent.h](Source/Warrior/Public/Components/Combat/PawnCombatComponent.h)）
 
 ```
 作用：管理角色携带的所有武器
@@ -607,7 +607,7 @@ LinkAnimClassLayers(AnimLayer_HeroAxe) 做的事情:
 作用：在父类基础上多加一个英雄专用的武器查询函数
 
 做了什么：
-  GetHeroCharacterCarriedWeaponByTag(Tag):
+  GetHeroCarriedWeaponByTag(Tag):
     调父类的 GetCharacterCarriedWeaponByTag
     然后 Cast<AWarriorHeroWeapon> 返回
 ```
@@ -842,8 +842,8 @@ BP_HeroAxe.HeroWeaponData
     GetHeroCombatComponentFromActorInfo()
       → GetHeroCharacterFromActorInfo()  [缓存]
          → GetHeroCombatComponent()
-            → UHeroCombatComponent::GetHeroCharacterCarriedWeaponByTag(Tag)
-               → UPawnCombatComponet::GetCharacterCarriedWeaponByTag(Tag)
+            → UHeroCombatComponent::GetHeroCarriedWeaponByTag(Tag)
+               → UPawnCombatComponent::GetCharacterCarriedWeaponByTag(Tag)
                   → CharacterCarriedWeaponMap.Find(Tag)
 
 需要从动画层拿东西时:
@@ -875,7 +875,7 @@ BP_HeroAxe.HeroWeaponData
   Source/Warrior/Public/AnimInstances/Hero/WarriorHeroLinkedAnimLayer.h
 
 核心战斗:
-  Source/Warrior/Public/Components/Combat/PawnCombatComponet.h
+  Source/Warrior/Public/Components/Combat/PawnCombatComponent.h
   Source/Warrior/Public/Components/Combat/HeroCombatComponent.h
   Source/Warrior/Public/Items/Weapons/WarriorWeaponBase.h
   Source/Warrior/Public/Items/Weapons/WarriorHeroWeapon.h

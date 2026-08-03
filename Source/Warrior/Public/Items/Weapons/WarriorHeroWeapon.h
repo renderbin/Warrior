@@ -21,7 +21,7 @@ public:
 	FWarriorHeroWeaponTypes HeroWeaponData;
 
 	UFUNCTION(BlueprintCallable)
-	void AssignGrandedAbilityHandles(const TArray<FGameplayAbilitySpecHandle>& InSpecHandles);
+	void AssignGrantedAbilityHandles(const TArray<FGameplayAbilitySpecHandle>& InSpecHandles);
 	UFUNCTION(BlueprintPure)
 	TArray<FGameplayAbilitySpecHandle> GetGrantedAbilitySpecHandles() const;
 	

@@ -366,7 +366,7 @@ struct FWarriorHeroWeaponTypes
     UInputMappingContext* WeaponInputMappingContext;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))
-    TArray<FWarriorHeroAbilitySet> DefaltWeaponAbilities;
+    TArray<FWarriorHeroAbilitySet> DefaultWeaponAbilities;
 };
 ```
 
@@ -436,19 +436,19 @@ class WARRIOR_API AWarriorBaseGameMode : public AGameModeBase
 
 > 依赖：第5步（PawnExtensionComponentBase）、第6步（WarriorWeaponBase，前向声明即可）
 
-### 新建 `Source/Warrior/Public/Components/Combat/PawnCombatComponet.h`
+### 新建 `Source/Warrior/Public/Components/Combat/PawnCombatComponent.h`
 
 ```cpp
 #pragma once
 #include "CoreMinimal.h"
 #include "Components/PawnExtensionComponentBase.h"
 #include "GameplayTagContainer.h"
-#include "PawnCombatComponet.generated.h"
+#include "PawnCombatComponent.generated.h"
 
 class AWarriorWeaponBase;
 
 UCLASS()
-class WARRIOR_API UPawnCombatComponet : public UPawnExtensionComponentBase
+class WARRIOR_API UPawnCombatComponent : public UPawnExtensionComponentBase
 {
     GENERATED_BODY()
 
@@ -471,14 +471,14 @@ private:
 };
 ```
 
-### 新建 `Source/Warrior/Private/Components/Combat/PawnCombatComponet.cpp`
+### 新建 `Source/Warrior/Private/Components/Combat/PawnCombatComponent.cpp`
 
 ```cpp
-#include "Components/Combat/PawnCombatComponet.h"
+#include "Components/Combat/PawnCombatComponent.h"
 #include "Items/Weapons/WarriorWeaponBase.h"
 #include "WarriorDebug.h"
 
-void UPawnCombatComponet::RegisterSpawnedWeapon(FGameplayTag InWeaponTagToRegister,
+void UPawnCombatComponent::RegisterSpawnedWeapon(FGameplayTag InWeaponTagToRegister,
     AWarriorWeaponBase* InWeaponToRegister, bool bRegisterAsEquippedWeapon)
 {
     checkf(!CharacterCarriedWeaponMap.Contains(InWeaponTagToRegister),
@@ -499,7 +499,7 @@ void UPawnCombatComponet::RegisterSpawnedWeapon(FGameplayTag InWeaponTagToRegist
     Debug::Print(WeaponString);
 }
 
-AWarriorWeaponBase* UPawnCombatComponet::GetCharacterCarriedWeaponByTag(
+AWarriorWeaponBase* UPawnCombatComponent::GetCharacterCarriedWeaponByTag(
     FGameplayTag InWeaponTagToGet) const
 {
     if (CharacterCarriedWeaponMap.Contains(InWeaponTagToGet))
@@ -513,7 +513,7 @@ AWarriorWeaponBase* UPawnCombatComponet::GetCharacterCarriedWeaponByTag(
     return nullptr;
 }
 
-AWarriorWeaponBase* UPawnCombatComponet::GetCharacterCurrentEquippedWeapon() const
+AWarriorWeaponBase* UPawnCombatComponent::GetCharacterCurrentEquippedWeapon() const
 {
     if (!CurrentEquippedWeaponTag.IsValid())
     {
@@ -645,11 +645,11 @@ void UWarriorAbilitySystemComponent::RemoveGrantedHeroWeaponAbilities(
 #include "Abilities/GameplayAbility.h"
 #include "WarriorGameplayAbility.generated.h"
 
-class UPawnCombatComponet;
+class UPawnCombatComponent;
 class UWarriorAbilitySystemComponent;
 
 UENUM(BlueprintType)
-enum class EWarriorAbilityActivationPolity : uint8
+enum class EWarriorAbilityActivationPolicy : uint8
 {
     OnTriggered,
     OnGiven
@@ -669,10 +669,10 @@ protected:
         bool bReplicateEndAbility, bool bWasCancelled) override;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "AbilitySystem")
-    EWarriorAbilityActivationPolity ActivationPolity = EWarriorAbilityActivationPolity::OnTriggered;
+    EWarriorAbilityActivationPolicy ActivationPolicy = EWarriorAbilityActivationPolicy::OnTriggered;
 
     UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
-    UPawnCombatComponet* GetPawnCombatComponetFromActorInfo() const;
+    UPawnCombatComponent* GetPawnCombatComponentFromActorInfo() const;
 
     UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
     UWarriorAbilitySystemComponent* GetWarriorAbilitySystemComponentFromActorInfo() const;
@@ -684,13 +684,13 @@ protected:
 ```cpp
 #include "AbilitySystem/Abilities/WarriorGameplayAbility.h"
 #include "AbilitySystem/WarriorAbilitySystemComponent.h"
-#include "Components/Combat/PawnCombatComponet.h"
+#include "Components/Combat/PawnCombatComponent.h"
 
 void UWarriorGameplayAbility::OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo,
     const FGameplayAbilitySpec& Spec)
 {
     Super::OnGiveAbility(ActorInfo, Spec);
-    if (ActivationPolity == EWarriorAbilityActivationPolity::OnGiven)
+    if (ActivationPolicy == EWarriorAbilityActivationPolicy::OnGiven)
     {
         if (ActorInfo && !Spec.IsActive())
         {
@@ -706,7 +706,7 @@ void UWarriorGameplayAbility::EndAbility(const FGameplayAbilitySpecHandle Handle
 {
     Super::EndAbility(Handle, ActorInfo, ActivationInfo, bReplicateEndAbility, bWasCancelled);
 
-    if (ActivationPolity == EWarriorAbilityActivationPolity::OnGiven)
+    if (ActivationPolicy == EWarriorAbilityActivationPolicy::OnGiven)
     {
         if (ActorInfo)
         {
@@ -715,9 +715,9 @@ void UWarriorGameplayAbility::EndAbility(const FGameplayAbilitySpecHandle Handle
     }
 }
 
-UPawnCombatComponet* UWarriorGameplayAbility::GetPawnCombatComponetFromActorInfo() const
+UPawnCombatComponent* UWarriorGameplayAbility::GetPawnCombatComponentFromActorInfo() const
 {
-    return GetAvatarActorFromActorInfo()->FindComponentByClass<UPawnCombatComponet>();
+    return GetAvatarActorFromActorInfo()->FindComponentByClass<UPawnCombatComponent>();
 }
 
 UWarriorAbilitySystemComponent* UWarriorGameplayAbility::GetWarriorAbilitySystemComponentFromActorInfo() const
@@ -836,7 +836,7 @@ protected:
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "AnimData|LocomotionData")
     float EnterRelaxStateTime = 5.f;
 
-    float IdleElpasedTime;
+    float IdleElapsedTime;
 };
 ```
 
@@ -860,13 +860,13 @@ void UWarriorHeroAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
     Super::NativeUpdateAnimation(DeltaSeconds);
     if (bHasAcceleration)
     {
-        IdleElpasedTime = 0.f;
+        IdleElapsedTime = 0.f;
         bShouldEnterRelaxState = false;
     }
     else
     {
-        IdleElpasedTime += DeltaSeconds;
-        if (IdleElpasedTime >= EnterRelaxStateTime)
+        IdleElapsedTime += DeltaSeconds;
+        if (IdleElapsedTime >= EnterRelaxStateTime)
         {
             bShouldEnterRelaxState = true;
         }
@@ -947,7 +947,7 @@ public:
     FWarriorHeroWeaponTypes HeroWeaponData;
 
     UFUNCTION(BlueprintCallable)
-    void AssignGrandedAbilityHandles(const TArray<FGameplayAbilitySpecHandle>& InSpecHandles);
+    void AssignGrantedAbilityHandles(const TArray<FGameplayAbilitySpecHandle>& InSpecHandles);
 
     UFUNCTION(BlueprintPure)
     TArray<FGameplayAbilitySpecHandle> GetGrantedAbilitySpecHandles() const;
@@ -962,7 +962,7 @@ private:
 ```cpp
 #include "Items/Weapons/WarriorHeroWeapon.h"
 
-void AWarriorHeroWeapon::AssignGrandedAbilityHandles(
+void AWarriorHeroWeapon::AssignGrantedAbilityHandles(
     const TArray<FGameplayAbilitySpecHandle>& InSpecHandles)
 {
     GrantedAbilitySpecHandles = InSpecHandles;
@@ -987,19 +987,19 @@ TArray<FGameplayAbilitySpecHandle> AWarriorHeroWeapon::GetGrantedAbilitySpecHand
 ```cpp
 #pragma once
 #include "CoreMinimal.h"
-#include "Components/Combat/PawnCombatComponet.h"
+#include "Components/Combat/PawnCombatComponent.h"
 #include "HeroCombatComponent.generated.h"
 
 class AWarriorHeroWeapon;
 
 UCLASS()
-class WARRIOR_API UHeroCombatComponent : public UPawnCombatComponet
+class WARRIOR_API UHeroCombatComponent : public UPawnCombatComponent
 {
     GENERATED_BODY()
 
 public:
     UFUNCTION(BlueprintCallable, Category = "Warrior|Combat")
-    AWarriorHeroWeapon* GetHeroCharacterCarriedWeaponByTag(FGameplayTag InWeaponTag) const;
+    AWarriorHeroWeapon* GetHeroCarriedWeaponByTag(FGameplayTag InWeaponTag) const;
 };
 ```
 
@@ -1009,7 +1009,7 @@ public:
 #include "Components/Combat/HeroCombatComponent.h"
 #include "Items/Weapons/WarriorHeroWeapon.h"
 
-AWarriorHeroWeapon* UHeroCombatComponent::GetHeroCharacterCarriedWeaponByTag(
+AWarriorHeroWeapon* UHeroCombatComponent::GetHeroCarriedWeaponByTag(
     FGameplayTag InWeaponTag) const
 {
     return Cast<AWarriorHeroWeapon>(GetCharacterCarriedWeaponByTag(InWeaponTag));
@@ -1728,7 +1728,7 @@ C++ 构建顺序（全独立可编译）:
  7. WarriorStructTypes.h/.cpp          ← 前向声明够用
  8. WarriorHeroController.h            ← 零依赖（空壳）
  9. WarriorBaseGameMode.h              ← 零依赖（空壳）
-10. PawnCombatComponet.h/.cpp          ← 依赖 5, 6
+10. PawnCombatComponent.h/.cpp          ← 依赖 5, 6
 11. WarriorAbilitySystemComponent.h/.cpp ← 依赖 7
 12. WarriorGameplayAbility.h/.cpp      ← 依赖 10, 11
 13. WarriorCharacterAnimInstance.h/.cpp ← 依赖 4（.cpp等23）

@@ -3,7 +3,7 @@
 
 #include "Items/Weapons/WarriorHeroWeapon.h"
 
-void AWarriorHeroWeapon::AssignGrandedAbilityHandles(const TArray<FGameplayAbilitySpecHandle>& InSpecHandles)
+void AWarriorHeroWeapon::AssignGrantedAbilityHandles(const TArray<FGameplayAbilitySpecHandle>& InSpecHandles)
 {
 	GrantedAbilitySpecHandles = InSpecHandles;
 }

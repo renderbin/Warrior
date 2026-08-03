@@ -23,5 +23,5 @@ protected:
 	bool bShouldEnterRelaxState;
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category="AnimData|LocomotionData")
 	float EnterRelaxStateTime = 5.f;
-	float IdleElpasedTime;
+	float IdleElapsedTime;
 };

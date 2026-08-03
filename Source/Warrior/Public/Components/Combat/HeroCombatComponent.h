@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Components/Combat/PawnCombatComponet.h"
+#include "Components/Combat/PawnCombatComponent.h"
 #include "HeroCombatComponent.generated.h"
 
 class AWarriorHeroWeapon;
@@ -11,12 +11,12 @@ class AWarriorHeroWeapon;
  * 
  */
 UCLASS()
-class WARRIOR_API UHeroCombatComponent : public UPawnCombatComponet
+class WARRIOR_API UHeroCombatComponent : public UPawnCombatComponent
 {
 	GENERATED_BODY()
 	public:
 		UFUNCTION(BlueprintCallable, Category="Warrior|Combat")
-		AWarriorHeroWeapon* GetHeroCharacterCarriedWeaponByTag(FGameplayTag InWeaponTag) const;
+		AWarriorHeroWeapon* GetHeroCarriedWeaponByTag(FGameplayTag InWeaponTag) const;
 	
 	
 	

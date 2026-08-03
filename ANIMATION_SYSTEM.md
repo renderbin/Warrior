@@ -120,7 +120,7 @@ C++ 最终父类: UWarriorHeroLinkedAnimLayer
 ### 武器生成 (游戏启动时自动)
 
 ```
-GA_Hero_Spawn_Axe (ActivationPolity = OnGiven)
+GA_Hero_Spawn_Axe (ActivationPolicy = OnGiven)
   → SpawnActor(BP_HeroAxe)
   → PawnCombatComponent::RegisterSpawnedWeapon("Player.Weapon.Axe", Axe, bEquipped=false)
 ```
@@ -150,7 +150,7 @@ GA_Hero_EquipAxe 激活:
      等待 AnimNotify 触发
 
   ③ 当事件被触发时 (OnEventReceived):
-      a. GetHeroCharacterCarriedWeaponByTag("Player.Weapon.Axe")
+      a. GetHeroCarriedWeaponByTag("Player.Weapon.Axe")
          → 从 PawnCombatComponent 的 TMap 中检索斧头
       b. Break HeroWeaponData → 获取 WeaponAnimLayerToLink, WeaponInputMappingContext
       c. K2_AttachToComponent(斧头, Mesh, "AxeRightHandSocket")
@@ -175,8 +175,8 @@ GA_Hero_EquipAxe 激活:
 | `UWarriorHeroLinkedAnimLayer` | `AnimInstances/Hero/WarriorHeroLinkedAnimLayer.h` | `GetHeroAnimInstance()`: 从主动画实例读取变量 |
 | `UWarriorBaseAnimInstance` | `AnimInstances/WarriorBaseAnimInstance.h` | 空基类，所有 Warrior AnimInstance 的根 |
 | `UWarriorAbilitySystemComponent` | `AbilitySystem/WarriorAbilitySystemComponent.h` | `OnAbilityInputPressed(tag)`: 输入→能力激活路由 |
-| `UPawnCombatComponet` | `Components/Combat/PawnCombatComponet.h` | TMap<FGameplayTag, AWarriorWeaponBase*> 武器注册，CurrentEquippedWeaponTag |
-| `UHeroCombatComponent` | `Components/Combat/HeroCombatComponent.h` | `GetHeroCharacterCarriedWeaponByTag()`: 按 Tag 查找并 Cast 武器 |
+| `UPawnCombatComponent` | `Components/Combat/PawnCombatComponent.h` | TMap<FGameplayTag, AWarriorWeaponBase*> 武器注册，CurrentEquippedWeaponTag |
+| `UHeroCombatComponent` | `Components/Combat/HeroCombatComponent.h` | `GetHeroCarriedWeaponByTag()`: 按 Tag 查找并 Cast 武器 |
 
 ---
 

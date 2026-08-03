@@ -18,12 +18,12 @@ void UWarriorHeroAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	Super::NativeUpdateAnimation(DeltaSeconds);
     if(bHasAcceleration)
     {
-        IdleElpasedTime = 0.f;
+        IdleElapsedTime = 0.f;
         bShouldEnterRelaxState = false;
     }
     else{
-        IdleElpasedTime += DeltaSeconds;
-        if(IdleElpasedTime >= EnterRelaxStateTime)
+        IdleElapsedTime += DeltaSeconds;
+        if(IdleElapsedTime >= EnterRelaxStateTime)
         {
             bShouldEnterRelaxState = true;
         }
