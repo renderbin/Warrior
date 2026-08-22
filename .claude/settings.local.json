@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git reset *)",
+      "Bash(ls \"D:/ue5-warrior-main/ue5-warrior-main/Source/\" 2>/dev/null | head -20)",
+      "Read(//d/ue5-warrior-main/ue5-warrior-main/Source/**)",
+      "Bash(git checkout *)",
+      "Bash(git clean *)",
+      "Bash(dotnet \"E:/UES/UnrealEngine-5.6/UnrealEngine-5.6/Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool.dll\" Warrior Win64 Development -Project=\"d:/Warrior/Warrior.uproject\" -WaitMutex)",
+      "Bash(mv \"Source/Warrior/Public/Conponents/MyActorComponent.h\" \"Source/Warrior/Public/Components/MyActorComponent.h\")",
+      "Bash(mv \"Source/Warrior/Private/Conponents/MyActorComponent.cpp\" \"Source/Warrior/Private/Components/MyActorComponent.cpp\")",
+      "Bash(rmdir \"Source/Warrior/Public/Conponents\" \"Source/Warrior/Private/Conponents\")",
+      "Bash(git mv *)",
+      "Bash(echo \"=== 项目 ===\"; find \"C:/Users/29957/Downloads/WarriorRPG-main\" -maxdepth 3 -type d 2>/dev/null | head -60; echo \"\"; echo \"=== 笔记 ===\"; find \"C:/Users/29957/Documents/Obsidian Vault\" -type f 2>/dev/null | head -100)",
+      "Read(//c/Users/29957/Downloads/WarriorRPG-main/**)",
+      "Read(//c/Users/29957/Documents/Obsidian Vault/**)",
+      "Bash(xargs -0 perl -i -pe 's/\\\\xc2\\\\xa0/ /g')",
+      "Bash(ls \"C:/Users/29957/Documents/Obsidian Vault/虚幻引擎C++高级动作角色扮演游戏/\" 2>/dev/null | head -50)",
+      "Read(//c/Users/29957/Documents/Obsidian Vault/虚幻引擎C\\\\+\\\\+高级动作角色扮演游戏/**)",
+      "Bash(find \"C:/Users/29957/Documents/Obsidian Vault\" -name \"*.md\" -type f | head -100)",
+      "Bash(grep -rnP '[ \\\\t]+\\\\r?$' \"C:/Users/29957/Documents/Obsidian Vault/虚幻引擎C++高级动作角色扮演游戏/4.57 属性集.md\")",
+      "Bash(python -c ' *)",
+      "Bash(ls \"e:\\\\UES\\\\UnrealEngine-5.6\\\\UnrealEngine-5.6\" 2>/dev/null | head -30; echo \"---\"; find \"e:\\\\UES\\\\UnrealEngine-5.6\" -maxdepth 3 -name \"*.uprojectdirs\" 2>/dev/null)",
+      "Read(//e/UES/UnrealEngine-5.6/**)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\29957\\Downloads\\WarriorRPG-main\\WarriorRPG-main\\Source\\Warrior",
+      "C:\\Users\\29957\\Documents\\Obsidian Vault\\虚幻引擎C++高级动作角色扮演游戏"
+    ]
+  }
+}
