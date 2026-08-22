@@ -4,33 +4,47 @@
 
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
+#include "GameplayTagContainer.h"
 #include "WarriorFunctionLibrary.generated.h"
-
 class UWarriorAbilitySystemComponent;
+class UPawnCombatComponent;
+
 UENUM()
-enum class EWarriorConfimType : uint8
-{
-	Yes,
-	No
-};
+enum class EWarriorConfirmType : uint8 { Yes, No };
+UENUM(BlueprintType)
+enum class EWarriorValidType : uint8 { Valid, Invalid };
 /**
  *
  */
 UCLASS()
-class WARRIOR_API UWarriorFunctionLibrary : public UBlueprintFunctionLibrary
-{
-	GENERATED_BODY()
+class WARRIOR_API UWarriorFunctionLibrary : public UBlueprintFunctionLibrary {
+  GENERATED_BODY()
+
 public:
-	static UWarriorAbilitySystemComponent* NativeGetWarriorASCFromActor(AActor* InActor);
+  static UWarriorAbilitySystemComponent *
+  NativeGetWarriorASCFromActor(AActor *InActor);
 
-	UFUNCTION(BlueprintCallable, category = "Warrior|FunctionLibrary")
-	static void AddGameplayTagActorIfNone(AActor* InActor, FGameplayTag TagToAdd);
+  UFUNCTION(BlueprintCallable, Category = "Warrior|FunctionLibrary")
+  static void AddGameplayTagActorIfNone(AActor *InActor, FGameplayTag TagToAdd);
 
-	UFUNCTION(BlueprintCallable, category = "Warrior|FunctionLibrary")
-	static void RemoveGameplayTagActorIfFound(AActor* InActor, FGameplayTag TagToRemove);
+  UFUNCTION(BlueprintCallable, Category = "Warrior|FunctionLibrary")
+  static void RemoveGameplayTagActorIfFound(AActor *InActor,
+                                            FGameplayTag TagToRemove);
+  static bool NativeDoesActorHaveTag(AActor *InActor, FGameplayTag TagToCheck);
 
-	static bool NativeDoesActorHaveTag(AActor* InActor, FGameplayTag TagToCheck);
+  UFUNCTION(BlueprintCallable, Category = "Warrior|FunctionLibrary",
+            meta = (DisplayName = "Does Actor Have Tag",
+                    ExpandEnumAsExecs = "OutConfirmType"))
 
-	UFUNCTION(BlueprintCallable, category = "Warrior|FunctionLibrary", meta = (DisplayName = "Does Actor Have Tag", ExpandEnumAsExecs = "OutConfimType"))
-	static void BP_DoesActorHaveTag(AActor* InActor, FGameplayTag TagToCheck, EWarriorConfimType& OutConfimType);
+  static void BP_DoesActorHaveTag(AActor *InActor, FGameplayTag TagToCheck,
+                                  EWarriorConfirmType &OutConfirmType);
+
+  static UPawnCombatComponent *
+  NativeGetPawnCombatComponentFromActor(AActor *InActor);
+
+  UFUNCTION(BlueprintCallable, Category = "Warrior|Combat",
+            meta = (ExpandEnumAsExecs = "OutValidType"))
+  static UPawnCombatComponent *
+  BP_GetPawnCombatComponentFromActor(AActor *InActor,
+                                     EWarriorValidType &OutValidType);
 };

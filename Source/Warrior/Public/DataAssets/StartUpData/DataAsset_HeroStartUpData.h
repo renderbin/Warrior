@@ -3,23 +3,26 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "DataAssets/StartUpData/DataAsset_StartUpDataBase.h"
 #include "GameplayTagContainer.h"
 #include "WarriorTypes/WarriorStructTypes.h"
-
-#include "DataAssets/StartUpData/DataAsset_StartUpDataBase.h"
 #include "DataAsset_HeroStartUpData.generated.h"
+class UWarriorGameplayAbility;
 
 /**
- *
+ * 
  */
 UCLASS()
 class WARRIOR_API UDataAsset_HeroStartUpData : public UDataAsset_StartUpDataBase
 {
 	GENERATED_BODY()
-public:
-	virtual void GiveToAbilitySystemComponent(UWarriorAbilitySystemComponent* InASCToGive, int32 ApplyLevel = 1) override;
+      public:
+        virtual void GiveToAbilitySystemComponent(
+            UWarriorAbilitySystemComponent *InASCToGive, int32 ApplyLevel = 1);
 
-private:
-	UPROPERTY(EditDefaultsOnly, Category = "StartUpData", meta = (TitleProperty = "InputTag"))
-	TArray<FWarriorHeroAbilitySet> HeroStartUpAbilitySets;
+      private:
+
+        UPROPERTY(EditDefaultsOnly, Category = "StartUpData",
+                  meta = (TitleProperty = "InputTag"))
+        TArray<FWarriorHeroAbilitySet> HeroStartUpAbilitySets;
 };

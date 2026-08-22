@@ -2,31 +2,35 @@
 
 #pragma once
 
-#include "AbilitySystem/Abilities/WarriorGameplayAbility.h"
 #include "CoreMinimal.h"
+#include "AbilitySystem/Abilities/WarriorGameplayAbility.h"
 #include "WarriorHeroGameplayAbility.generated.h"
-
 class AWarriorHeroCharacter;
 class AWarriorHeroController;
 class UHeroCombatComponent;
 /**
- *
+ * 
  */
 UCLASS()
 class WARRIOR_API UWarriorHeroGameplayAbility : public UWarriorGameplayAbility
 {
 	GENERATED_BODY()
-public:
-	UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
-	AWarriorHeroCharacter* GetHeroCharacterFromActorInfo();
 
-	UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
-	AWarriorHeroController* GetHeroControllerFromActorInfo();
+      public:
+        UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
+        AWarriorHeroCharacter *GetHeroCharacterFromActorInfo();
 
-	UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
-	UHeroCombatComponent* GetHeroCombatComponentFromActorInfo();
+        UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
+        AWarriorHeroController *GetHeroControllerFromActorInfo();
 
-private:
-	TWeakObjectPtr<AWarriorHeroCharacter> CachedWarriorHeroCharacter;
-	TWeakObjectPtr<AWarriorHeroController> CachedWarriorHeroController;
+        UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
+        UHeroCombatComponent *GetHeroCombatComponentFromActorInfo();
+        UFUNCTION(BlueprintPure)
+        FGameplayEffectSpecHandle MakeHeroDamageEffectSpecHandle(
+            TSubclassOf<UGameplayEffect> EffectClass, float InWeaponBaseDamage,
+            FGameplayTag InCurrentAttackTypeTag, int32 InUsedComboCount) const;
+
+      private:
+        TWeakObjectPtr<AWarriorHeroCharacter> CachedWarriorHeroCharacter;
+        TWeakObjectPtr<AWarriorHeroController> CachedWarriorHeroController;
 };

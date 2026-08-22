@@ -3,8 +3,8 @@
 
 #include "WarriorTypes/WarriorStructTypes.h"
 #include "AbilitySystem/Abilities/WarriorGameplayAbility.h"
-
-bool FWarriorHeroAbilitySet::IsValid() const
-{
-    return InputTag.IsValid() && AbilityToGrant;
+#include "InputMappingContext.h"
+#include "AnimInstances/Hero/WarriorHeroLinkedAnimLayer.h"
+bool FWarriorHeroAbilitySet::IsValid() const {
+  return InputTag.IsValid() && AbilityToGrant;
 }

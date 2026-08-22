@@ -15,16 +15,19 @@ UCLASS()
 class WARRIOR_API AWarriorHeroWeapon : public AWarriorWeaponBase
 {
 	GENERATED_BODY()
-public:
-	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category="WeaponData")
-	
-	FWarriorHeroWeaponTypes HeroWeaponData;
 
-	UFUNCTION(BlueprintCallable)
-	void AssignGrantedAbilityHandles(const TArray<FGameplayAbilitySpecHandle>& InSpecHandles);
-	UFUNCTION(BlueprintPure)
-	TArray<FGameplayAbilitySpecHandle> GetGrantedAbilitySpecHandles() const;
-	
-private:
-	TArray<FGameplayAbilitySpecHandle> GrantedAbilitySpecHandles;
+      public:
+        // 武器数据，包含动画层等
+        UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "WeaponData")
+        FWarriorHeroWeaponData HeroWeaponData;
+
+        UFUNCTION(BlueprintCallable, Category = "Warrior|AbilitySystem")
+        void AssignGrantedAbilitySpecHandles(
+            const TArray<FGameplayAbilitySpecHandle> &InSpecHandles);
+
+        UFUNCTION(BlueprintPure, Category = "Warrior|AbilitySystem")
+        TArray<FGameplayAbilitySpecHandle> GetGrantedAbilitySpecHandles() const;
+
+      private:
+        TArray<FGameplayAbilitySpecHandle> GrantedAbilitySpecHandles;
 };
