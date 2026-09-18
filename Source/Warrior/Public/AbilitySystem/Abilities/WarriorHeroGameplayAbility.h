@@ -16,21 +16,21 @@ class WARRIOR_API UWarriorHeroGameplayAbility : public UWarriorGameplayAbility
 {
 	GENERATED_BODY()
 
-      public:
-        UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
-        AWarriorHeroCharacter *GetHeroCharacterFromActorInfo();
+public:
+	UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
+	AWarriorHeroCharacter* GetHeroCharacterFromActorInfo();
 
-        UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
-        AWarriorHeroController *GetHeroControllerFromActorInfo();
+	UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
+	AWarriorHeroController* GetHeroControllerFromActorInfo();
 
-        UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
-        UHeroCombatComponent *GetHeroCombatComponentFromActorInfo();
-        UFUNCTION(BlueprintPure)
-        FGameplayEffectSpecHandle MakeHeroDamageEffectSpecHandle(
-            TSubclassOf<UGameplayEffect> EffectClass, float InWeaponBaseDamage,
-            FGameplayTag InCurrentAttackTypeTag, int32 InUsedComboCount) const;
+	UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
+	UHeroCombatComponent* GetHeroCombatComponentFromActorInfo();
 
-      private:
-        TWeakObjectPtr<AWarriorHeroCharacter> CachedWarriorHeroCharacter;
-        TWeakObjectPtr<AWarriorHeroController> CachedWarriorHeroController;
+	UFUNCTION(BlueprintPure)
+	FGameplayEffectSpecHandle MakeHeroDamageEffectSpecHandle(TSubclassOf<UGameplayEffect> EffectClass,
+	    float InWeaponBaseDamage, FGameplayTag InCurrentAttackTypeTag, int32 InUsedComboCount) const;
+
+private:
+	TWeakObjectPtr<AWarriorHeroCharacter> CachedWarriorHeroCharacter;
+	TWeakObjectPtr<AWarriorHeroController> CachedWarriorHeroController;
 };

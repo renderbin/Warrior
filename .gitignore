@@ -94,3 +94,15 @@ Plugins/*/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+
+# AI 工具本地配置（仅本机）
+.claude/settings.local.json
+.claude/*.local.*
+
+# 第三方游戏解包资产（仅本地参考，不入库）
+/Content/BlackMythWukong/
+/Content/Mesh/
+
+# 外部文档导出（非项目文件）
+qqdoc.html
+qqdoc整理.md

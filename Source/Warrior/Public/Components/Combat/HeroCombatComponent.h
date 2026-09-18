@@ -13,16 +13,15 @@ UCLASS()
 class WARRIOR_API UHeroCombatComponent : public UPawnCombatComponent
 {
 	GENERATED_BODY()
+public:
+	UFUNCTION(BlueprintCallable, Category = "Warrior|Combat")
+	AWarriorHeroWeapon* GetHeroCarriedWeaponByTag(FGameplayTag InWeaponTag) const;
 
-      public:
-        UFUNCTION(BlueprintCallable, Category = "Warrior|Combat")
-        AWarriorHeroWeapon *
-        GetHeroCarriedWeaponByTag(FGameplayTag InWeaponTag) const;
+	UFUNCTION(BlueprintCallable, Category = "Combat")
+	AWarriorHeroWeapon* GetHeroCurrentEquippedWeapon() const;
+	UFUNCTION(BlueprintCallable, Category = "Combat")
+	float GetHeroCurrentEquipWeaponDamageAtLevel(float InLevel) const;
 
-        virtual void OnHitTargetActor(AActor *HitActor);
-        virtual void OnWeaponPulledFromTargetActor(AActor *InteractedActor);
-        UFUNCTION(BlueprintCallable, Category = "Combat")
-        AWarriorHeroWeapon *GetHeroCurrentEquippedWeapon() const;
-        UFUNCTION(BlueprintCallable, Category = "Combat")
-        float GetHeroCurrentEquipWeaponDamageAtLevel(float InLevel) const;
+	virtual void OnHitTargetActor(AActor* HitActor) override;
+	virtual void OnWeaponPulledFromTargetActor(AActor* InteractedActor) override;
 };

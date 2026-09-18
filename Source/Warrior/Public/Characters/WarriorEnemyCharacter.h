@@ -4,37 +4,36 @@
 
 #include "CoreMinimal.h"
 #include "Characters/WarriorBaseCharacter.h"
-#include "Interfaces/PawnCombatInterface.h"
-
 #include "WarriorEnemyCharacter.generated.h"
-class UEnemyUIComponent;
 class UEnemyCombatComponent;
+class UEnemyUIComponent;
 class UWidgetComponent;
 /**
- *
+ * 
  */
 UCLASS()
-class WARRIOR_API AWarriorEnemyCharacter : public AWarriorBaseCharacter {
-  GENERATED_BODY()
+class WARRIOR_API AWarriorEnemyCharacter : public AWarriorBaseCharacter
+{
+	GENERATED_BODY()
+	public:
+    AWarriorEnemyCharacter();
+    FORCEINLINE UEnemyCombatComponent* GetEnemyCombatComponent() const { return EnemyCombatComponent; }
+	virtual void PossessedBy(AController* NewController) override;
+	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
+	virtual UPawnUIComponent* GetPawnUIComponent() const override;
+	void InitEnemyStartUpData();
 
-public:
-  AWarriorEnemyCharacter();
-  virtual void PossessedBy(AController *NewController) override;
-  virtual void BeginPlay() override;
-  void InitEnemyStartUpData();
-  virtual UPawnUIComponent *GetPawnUIComponent() const override;
-  virtual UEnemyUIComponent *GetEnemyUIComponent() const override;
-  virtual UPawnCombatComponent *GetPawnCombatComponent() const override;
-
-  FORCEINLINE UEnemyCombatComponent *GetEnemyCombatComponent() const {
-    return EnemyCombatComponent;
-  }
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Combat")
+	UEnemyCombatComponent* EnemyCombatComponent;
+	virtual UEnemyUIComponent* GetEnemyUIComponent() const override;
 
 protected:
-  UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Combat")
-  UEnemyCombatComponent *EnemyCombatComponent;
-  UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category ="UI")
-  UEnemyUIComponent *EnemyUIComponent;
-  UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI")
-  UWidgetComponent *EnemyHealthWidgetComponent;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI")
+	UWidgetComponent* EnemyHealthWidgetComponent;
+
+	virtual void BeginPlay() override;
+
+private:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI", meta = (AllowPrivateAccess = "true"))
+	UEnemyUIComponent* EnemyUIComponent;
 };

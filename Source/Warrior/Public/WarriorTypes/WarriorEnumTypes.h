@@ -2,9 +2,25 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 UENUM(BlueprintType)
-enum class EWarriorSuccessType : uint8 { Failed, Successful };
-/**
- * 
- */
+enum class EWarriorValidType : uint8
+{
+	Valid,
+	Invalid
+};
+
+UENUM(BlueprintType)
+enum class EToggleDamageType : uint8
+{
+	CurrentEquippedWeapon,
+	LeftHand,
+	RightHand,
+	BothHands,
+};
+
+UENUM(BlueprintType)
+enum class EWarriorSuccessType : uint8
+{
+	Failed,
+	Successful
+};

@@ -14,12 +14,17 @@ UCLASS()
 class WARRIOR_API UWarriorEnemyGameplayAbility : public UWarriorGameplayAbility
 {
 	GENERATED_BODY()
-      public:
-        UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
-        AWarriorEnemyCharacter *GetEnemyCharacterFromActorInfo();
-        UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
-        UEnemyCombatComponent *GetEnemyCombatComponentFromActorInfo();
+public:
+	UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
+	AWarriorEnemyCharacter* GetEnemyCharacterFromActorInfo();
+	UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
+	UEnemyCombatComponent* GetEnemyCombatComponentFromActorInfo();
 
-      private:
-        TWeakObjectPtr<AWarriorEnemyCharacter> CachedWarriorEnemyCharacter;
+	/** 以敌人 ASC 创建伤害 Spec，基础伤害按能力等级从曲线取值写入 SetByCaller */
+	UFUNCTION(BlueprintPure, Category = "Warrior|Ability")
+	FGameplayEffectSpecHandle MakeEnemyDamageEffectSpecHandle(
+	    TSubclassOf<UGameplayEffect> EffectClass, const FScalableFloat& InDamageScalableFloat);
+
+private:
+	TWeakObjectPtr<AWarriorEnemyCharacter> CachedWarriorEnemyCharacter;
 };

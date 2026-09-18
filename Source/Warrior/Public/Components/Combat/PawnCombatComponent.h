@@ -5,53 +5,42 @@
 #include "CoreMinimal.h"
 #include "Components/PawnExtensionComponentBase.h"
 #include "GameplayTagContainer.h"
+#include "WarriorTypes/WarriorEnumTypes.h"
 #include "PawnCombatComponent.generated.h"
 class AWarriorWeaponBase;
-UENUM(BlueprintType)
-enum class EToggleDamageType : uint8 {
-  CurrentEquippedWeapon,
-  LeftHand,
-  RightHand,
-  BothHands,
-};
+/**
+ * 
+ */
 UCLASS()
 class WARRIOR_API UPawnCombatComponent : public UPawnExtensionComponentBase
 {
 	GENERATED_BODY()
-      public:
-        UFUNCTION(BlueprintCallable, Category = "Warrior|Combat")
-        void RegisterSpawnedWeapon(FGameplayTag InWeaponTagToRegister,
-                                   AWarriorWeaponBase *InWeaponToRegister,
-                                   bool bRegisterAsEquippedWeapon = false);
+public:
+	UFUNCTION(BlueprintCallable, Category = "Warrior|Combat")
+	void RegisterSpawnedWeapon(FGameplayTag InWeaponTagToRegister, AWarriorWeaponBase* InWeaponToRegister,
+	    bool bRegisterAsEquippedWeapon = false);
 
-        UFUNCTION(BlueprintCallable, Category = "Warrior|Combat")
-        AWarriorWeaponBase *
-        GetCharacterCarriedWeaponByTag(FGameplayTag InWeaponTagToGet) const;
+	UFUNCTION(BlueprintCallable, Category = "Warrior|Combat")
+	AWarriorWeaponBase* GetCharacterCarriedWeaponByTag(FGameplayTag InWeaponTagToGet) const;
 
-        UPROPERTY(BlueprintReadWrite, Category = "Warrior|Combat")
-        FGameplayTag CurrentEquippedWeaponTag;
+	UPROPERTY(BlueprintReadWrite, Category = "Warrior|Combat")
+	FGameplayTag CurrentEquippedWeaponTag;
 
-        UFUNCTION(BlueprintCallable, Category = "Warrior|Combat")
-        AWarriorWeaponBase *GetCharacterCurrentEquippedWeapon() const;
+	UFUNCTION(BlueprintCallable, Category = "Warrior|Combat")
+	AWarriorWeaponBase* GetCharacterCurrentEquippedWeapon() const;
+	virtual void OnHitTargetActor(AActor* HitActor);
+	virtual void OnWeaponPulledFromTargetActor(AActor* InteractedActor);
 
-        UFUNCTION(BlueprintCallable)
-        void
-        ToggleWeaponCollision(bool bShouldEnable,
-                              EToggleDamageType ToggleDamageType =
-                                  EToggleDamageType::CurrentEquippedWeapon);
-         virtual void OnHitTargetActor(AActor *HitActor);
-        virtual void OnWeaponPulledFromTargetActor(AActor *InteractedActor);
+	UFUNCTION(BlueprintCallable)
+	void ToggleWeaponCollision(
+	    bool bShouldEnable, EToggleDamageType ToggleDamageType = EToggleDamageType::CurrentEquippedWeapon);
 
-      protected:
-        virtual void
-        ToggleCurrentEquippedWeaponCollision(bool bShouldEnable);
+protected:
+	virtual void ToggleCurrentEquippedWeaponCollision(bool bShouldEnable);
+	virtual void ToggleBodyCollisionBoxCollision(bool bShouldEnable, EToggleDamageType ToggleDamageType);
 
-        virtual void
-        ToggleBodyCollisionBoxCollision(bool bShouldEnable,
-                                        EToggleDamageType ToggleDamageType);
+	TArray<AActor*> OverlappedActors;
 
-        TArray<AActor *> OverlappedActors;
-
-      private:
-        TMap<FGameplayTag, AWarriorWeaponBase *> CharacterCarriedWeaponMap;
+private:
+	TMap<FGameplayTag, AWarriorWeaponBase*> CharacterCarriedWeaponMap;
 };

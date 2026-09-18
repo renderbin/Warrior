@@ -6,44 +6,40 @@
 #include "GameplayTagContainer.h"
 #include "ScalableFloat.h"
 #include "WarriorStructTypes.generated.h"
-
+// 前置声明动画层类
 class UWarriorGameplayAbility;
 class UInputMappingContext;
 class UWarriorHeroLinkedAnimLayer;
 
 USTRUCT(BlueprintType)
-struct FWarriorHeroAbilitySet {
-  GENERATED_BODY()
+struct FWarriorHeroAbilitySet
+{
+	GENERATED_BODY()
 
-  UPROPERTY(EditDefaultsOnly, BlueprintReadOnly,
-            meta = (Categories = "Input"))
-  FGameplayTag InputTag;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (Categories = "InputTag"))
+	FGameplayTag InputTag;
 
-  UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-  TSubclassOf<UWarriorGameplayAbility> AbilityToGrant;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TSubclassOf<UWarriorGameplayAbility> AbilityToGrant;
 
-  bool IsValid() const; // 有效性检查
+	bool IsValid() const;
 };
-
 USTRUCT(BlueprintType)
-struct FWarriorHeroWeaponData {
-  GENERATED_BODY()
+struct FWarriorHeroWeaponData
+{
+	GENERATED_BODY()
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TSubclassOf<UWarriorHeroLinkedAnimLayer> WeaponAnimLayerToLink;
 
-  // 用于链接的动画层类
-  UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-  TSubclassOf<UWarriorHeroLinkedAnimLayer> WeaponAnimLayerToLink;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TObjectPtr<UInputMappingContext> WeaponInputMappingContext;
 
-  UPROPERTY(EditDefaultsOnly, BlueprintReadOnly,
-            meta = (TitleProperty = "InputTag"))
-  TArray<FWarriorHeroAbilitySet> DefaultWeaponAbilities;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (TitleProperty = "InputTag"))
+	TArray<FWarriorHeroAbilitySet> DefaultWeaponAbilities;
 
-  // 武器专用输入映射上下文
-  UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-  UInputMappingContext *WeaponInputMappingContext;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	FScalableFloat WeaponBaseDamage;
 
-  UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-  FScalableFloat WeaponBaseDamage;
-
-  UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-  TSoftObjectPtr<UTexture2D> SoftWeaponIconTexture;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TSoftObjectPtr<UTexture2D> SoftWeaponIconTexture;
 };

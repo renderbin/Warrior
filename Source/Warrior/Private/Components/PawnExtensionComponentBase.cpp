@@ -3,3 +3,5 @@
 
 #include "Components/PawnExtensionComponentBase.h"
 
+
+// Sets default values for this component's properties
